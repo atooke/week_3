@@ -191,14 +191,38 @@ red_df.sort_values('density', ascending=False)[['density']].head(5)
 
 # 7 - Find the 10 lowest `sulphates` values.
 red_df.sort_values('sulphates')[['sulphates']].head(10)
-
+#
 # ### Part 4 - Practice with Plotting
 #
+# %%
 # 1. Plot the average amount of `chlorides` for each `quality` value (1 from Part 3).
+import matplotlib.pyplot as plt
+
+red_df.groupby('chlorides')
+red_df.groupby('quality').mean()['chlorides'].plot(kind='bar')
+plt.show()
+
+# %%
 # 2. Plot the `alcohol` values against `pH` values. Does there appear to be any relationship between the two?
+red_df.plot(x='alcohol', y='pH', kind='line')
+plt.show()
+
+# %%
 # 3. Plot `total_acidity` values against `pH` values. Does there appear to be any relationship between the two?
+red_df.plot(x='total_acidity', y='pH', kind='line')
+plt.show()
+# yes ;
+
+# %%
 # 4. Plot a histogram of the `quality` values. Are they evenly distributed within the data set?
+red_df[['quality']]
+red_df[['quality']].plot(kind='hist')
+plt.show()
+
+# %%
 # 5. Plot a boxplot to look at the distribution of `citric acid`.
+red_df[['citric_acid']].plot(kind='box')
+plt.show()
 
 # ### Part 5 - Putting it All Together
 #
@@ -214,4 +238,26 @@ red_df.sort_values('sulphates')[['sulphates']].head(10)
 # 4. [Abalone](http://archive.ics.uci.edu/ml/datasets/Abalone)
 # 5. [Adult Income data set](http://archive.ics.uci.edu/ml/datasets/Adult)
 #
+
+# %%
+# 5. [Adult Income data set](http://archive.ics.uci.edu/ml/datasets/Adult)
+headers = ['age', 'workclass', 'fnlwgt', 'education', 'education-num', 'marital-status', 'occupation', 'relationship', 'race', 'sex', 'capital-gain', 'capital-loss', 'hours-per-week', 'native-country', 'income']
+income_df = pd.read_csv('./data/adult_income.csv', names=headers, sep=',')
+correlation = income_df.corr()
+# rm corr with self
+np.fill_diagonal(correlation.values, 0)
+
+fig = plt.figure()
+ax = fig.add_subplot(111)
+cax = ax.matshow(correlation, interpolation='nearest')
+fig.colorbar(cax)
+
+axis_labels = correlation.columns.values
+ax.set_xticks(np.arange(len(axis_labels)))
+ax.set_xticklabels(axis_labels, rotation=45, ha='right')
+ax.set_yticks(np.arange(len(axis_labels)))
+ax.set_yticklabels(axis_labels, rotation=45, ha='right')
+plt.show()
+correlation
+
 # The links above are all to the home pages of these data sources. At the top of these pages, you will find a link the the `Data Folder` where you can actually find the data. The majority of these data sets don't come in `.csv` format. While one of the datasets is available in `.csv` format, we encourage you to pick whatever data set you find most interesting (regardless of the format), and challenge yourself to read the necessary documentation and go through the process of figuring out how to get the data from the web and into a `DataFrame` (the instructors will also be around to help).
