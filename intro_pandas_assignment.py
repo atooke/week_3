@@ -33,6 +33,7 @@
 
 import pandas as pd
 import numpy as np
+from matplotlib import pyplot as plt
 red_df = pd.read_csv('./data/winequality-red.csv', sep=';')
 red_df.head(10)
 
