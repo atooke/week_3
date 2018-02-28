@@ -190,14 +190,38 @@ red_df.sort_values('density', ascending=False)[['density']].head(5)
 
 # 7 - Find the 10 lowest `sulphates` values.
 red_df.sort_values('sulphates')[['sulphates']].head(10)
-
+#
 # ### Part 4 - Practice with Plotting
 #
+# %%
 # 1. Plot the average amount of `chlorides` for each `quality` value (1 from Part 3).
+import matplotlib.pyplot as plt
+
+red_df.groupby('chlorides')
+red_df.groupby('quality').mean()['chlorides'].plot(kind='bar')
+plt.show()
+
+# %%
 # 2. Plot the `alcohol` values against `pH` values. Does there appear to be any relationship between the two?
+red_df.plot(x='alcohol', y='pH', kind='line')
+plt.show()
+
+# %%
 # 3. Plot `total_acidity` values against `pH` values. Does there appear to be any relationship between the two?
+red_df.plot(x='total_acidity', y='pH', kind='line')
+plt.show()
+# yes ;
+
+# %%
 # 4. Plot a histogram of the `quality` values. Are they evenly distributed within the data set?
+red_df[['quality']]
+red_df[['quality']].plot(kind='hist')
+plt.show()
+
+# %%
 # 5. Plot a boxplot to look at the distribution of `citric acid`.
+red_df[['citric_acid']].plot(kind='box')
+plt.show()
 
 # ### Part 5 - Putting it All Together
 #
